@@ -10,7 +10,8 @@ use yii\helpers\Json;
 use yii\grid\GridViewAsset;
 use yii\helpers\Html;
 
-class SortableGridView extends GridView {
+class SortableGridView extends GridView
+{
     /**
      * (required) The URL of related SortableAction
      *
@@ -32,7 +33,7 @@ class SortableGridView extends GridView {
      *
      * @var string
      */
-    public $failText = 'Fail to sort';
+    public $sortingFailText = 'Fail to sort';
 
     /**
      * (optional) Element which need to drag to start sortable.
@@ -42,10 +43,11 @@ class SortableGridView extends GridView {
      */
     public $moveItem = '';
 
-    public function init(){
+    public function init()
+    {
         parent::init();
 
-        if(!isset($this->sortUrl)){
+        if (!isset($this->sortUrl)) {
             throw new InvalidConfigException("You must specify the sortUrl");
         }
 
@@ -79,10 +81,11 @@ class SortableGridView extends GridView {
         return Html::tag('tr', implode('', $cells), $options);
     }
 
-    public function run(){
-        foreach($this->columns as $column){
-			if(property_exists($column, 'enableSorting'))
-				$column->enableSorting = false;
+    public function run()
+    {
+        foreach ($this->columns as $column) {
+            if (property_exists($column, 'enableSorting'))
+                $column->enableSorting = false;
         }
         parent::run();
 
@@ -90,7 +93,7 @@ class SortableGridView extends GridView {
             'id' => $this->id,
             'action' => $this->sortUrl,
             'sortingPromptText' => $this->sortingPromptText,
-            'sortingFailText' => $this->failText,
+            'sortingFailText' => $this->sortingFailText,
             'moveItem' => $this->moveItem,
             'csrfTokenName' => \Yii::$app->request->csrfParam,
             'csrfToken' => \Yii::$app->request->csrfToken,
